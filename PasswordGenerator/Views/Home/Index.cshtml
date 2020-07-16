@@ -1,0 +1,136 @@
+﻿@model PasswordGenerator.Models.Password
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MinChar" class="control-label"></label>
+                        <input asp-for="MinChar" class="form-control" />
+                        <span asp-validation-for="MinChar" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MaxChar" class="control-label"></label>
+                        <input asp-for="MaxChar" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MinUC" class="control-label"></label>
+                        <input asp-for="MinUC" class="form-control" />
+                        <span asp-validation-for="MinUC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MinLC" class="control-label"></label>
+                        <input asp-for="MinLC" class="form-control" />
+                        <span asp-validation-for="MinLC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MinSp" class="control-label"></label>
+                        <input asp-for="MinSp" class="form-control" />
+                        <span asp-validation-for="MinSp" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="MinNum" class="control-label"></label>
+                        <input asp-for="MinNum" class="form-control" />
+                        <span asp-validation-for="MinNum" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="ExcludedCharacters" class="control-label"></label>
+                        <div class="input-group">
+                            <input asp-for="ExcludedCharacters" class="form-control" />
+                            <span class="input-group-btn input-group-append">
+                                <button id="Clear" name="Clear" class="btn btn-secondary" type="button">Clear</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <div class="input-group">
+                    <input type="text" id="Value" name="Value" value="@Model.Value" readonly class="form-control bg-dark text-light" />
+                    <span class="input-group-btn input-group-append">
+                        <button type="button" id="Copy" name="Copy" class="btn btn-secondary border-light disabled">Copy</button>
+                    </span>
+                </div>
+            </div>
+            <div id="copied">
+                <div class="form-group mt-4 d-none">
+                    <div class="alert alert-success p-2 m-0">Password copied</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Generate</button>
+                <button type="button" id="Reset" name="Reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        var min = '@ViewBag.MinChar';
+        var uc = '@ViewBag.MinUC';
+        var lc = '@ViewBag.MinLC';
+        var sp = '@ViewBag.MinSp';
+        var ec = '@ViewBag.ExcludedCharacters';
+
+        $(function () {
+            if ($('#Value').val() != '') {  
+                $('#Copy').removeClass("disabled");
+            }
+        });
+
+        $('#Clear').click(function () {
+            $('#ExcludedCharacters').val('');
+        });
+
+        $('#Reset').click(function () {
+            $('#MinChar').val(min);
+            $('#MinUC').val(uc);
+            $('#MinLC').val(lc);
+            $('#MinSp').val(sp);
+            $('#ExcludedCharacters').val(ec);
+
+            $('#Copy').addClass("disabled");
+
+            $('#Value').val('');
+            $('#copied div').addClass('d-none');
+        });
+
+        $('#Copy').click(function () {
+            var value = $('#Value');
+
+            if (value.val() != '') {
+                value.focus();
+                value.select();
+
+                document.execCommand("copy");
+
+                $('#copied div').fadeIn('slow', function () {
+                    $('#copied div').removeClass('d-none');
+                });
+            }            
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
