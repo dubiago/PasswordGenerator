@@ -64,7 +64,7 @@
                         <input asp-for="UserName" class="form-control" />
                     </div>
                 </div>
-            </div>                        
+            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Generate</button>
                 <button type="button" id="Reset" name="Reset" class="btn btn-secondary">Reset</button>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer bg-black border-light">                
+            <div class="modal-footer bg-black border-light">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -113,9 +113,10 @@
         var lc = '@ViewBag.MinLC';
         var sp = '@ViewBag.MinSp';
         var ec = '@ViewBag.ExcludedCharacters';
+        var num = '@ViewBag.MinNum';
 
         $(function () {
-            if ($('#Value').val() != '') {  
+            if ($('#Value').val() != '') {
                 $('#PasswordModal').modal().show();
             }
         });
@@ -129,6 +130,7 @@
             $('#MinUC').val(uc);
             $('#MinLC').val(lc);
             $('#MinSp').val(sp);
+            $('#MinNum').val(num);
             $('#ExcludedCharacters').val(ec);
 
             $('#Copy').addClass("disabled");
@@ -149,7 +151,7 @@
                 $('#copied div').fadeIn('slow', function () {
                     $('#copied div').removeClass('d-none');
                 });
-            }            
+            }
         });
     </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
