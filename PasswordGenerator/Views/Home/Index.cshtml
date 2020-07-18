@@ -1,4 +1,4 @@
-﻿@model PasswordGenerator.Models.Password
+@model PasswordGenerator.Models.Password
 <div class="row">
     <div class="col-md-12">
         <form asp-action="Index">
@@ -64,21 +64,7 @@
                         <input asp-for="UserName" class="form-control" />
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Value" class="control-label"></label>
-                <div class="input-group">
-                    <input type="text" id="Value" name="Value" value="@Model.Value" readonly class="form-control bg-dark text-light" />
-                    <span class="input-group-btn input-group-append">
-                        <button type="button" id="Copy" name="Copy" class="btn btn-secondary border-light disabled">Copy</button>
-                    </span>
-                </div>
-            </div>
-            <div id="copied">
-                <div class="form-group mt-4 d-none">
-                    <div class="alert alert-success p-2 m-0">Password copied</div>
-                </div>
-            </div>
+            </div>                        
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Generate</button>
                 <button type="button" id="Reset" name="Reset" class="btn btn-secondary">Reset</button>
@@ -86,6 +72,40 @@
         </form>
     </div>
 </div>
+
+<div id="PasswordModal" class="modal hide fade">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark border-light">
+            <div class="modal-header bg-black border-light">
+                <span class="modal-title" id="myModalLabel"><label asp-for="Value"></label></span>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" id="Value" name="Value" value="@Model.Value" readonly class="form-control bg-dark text-light" />
+                                <span class="input-group-btn input-group-append">
+                                    <button type="button" id="Copy" name="Copy" class="btn btn-secondary border-light">Copy</button>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="copied">
+                            <div class="form-group mt-4 d-none">
+                                <div class="alert alert-success p-2 m-0">Password copied</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-black border-light">                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         var min = '@ViewBag.MinChar';
@@ -96,7 +116,7 @@
 
         $(function () {
             if ($('#Value').val() != '') {  
-                $('#Copy').removeClass("disabled");
+                $('#PasswordModal').modal().show();
             }
         });
 
