@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -27,7 +27,7 @@ namespace PasswordGenerator.Controllers
             ViewData["MinChar"] = _config.Value.MinChar;
             ViewData["MinLC"] = _config.Value.MinLC;
             ViewData["MinUC"] = _config.Value.MinUC;
-            ViewData["MinNum"] = _config.Value.MinUC;
+            ViewData["MinNum"] = _config.Value.MinNum;
             ViewData["MinSp"] = _config.Value.MinSp;
 
             Password password = new Password()
@@ -49,7 +49,7 @@ namespace PasswordGenerator.Controllers
             ViewData["MinChar"] = _config.Value.MinChar;
             ViewData["MinLC"] = _config.Value.MinLC;
             ViewData["MinUC"] = _config.Value.MinUC;
-            ViewData["MinNum"] = _config.Value.MinUC;
+            ViewData["MinNum"] = _config.Value.MinNum;
             ViewData["MinSp"] = _config.Value.MinSp;
 
             Generator.Generate(password);
